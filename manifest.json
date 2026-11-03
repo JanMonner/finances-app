@@ -1,12 +1,13 @@
 {
-  "name": "Les Meves Finances — Control Mensual",
-  "short_name": "Finances",
-  "description": "App de finances personals per a iPhone i PC amb sincronització al núvol",
+  "name": "Mis Cuentas — Gestión Mensual",
+  "short_name": "Mis Cuentas",
+  "description": "App de cuentas personales para iPhone y PC vinculadas en tiempo real.",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0F172A",
-  "theme_color": "#0F172A",
-  "orientation": "portrait",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "lang": "es-ES",
   "icons": [
     {
       "src": "icon-192.png",

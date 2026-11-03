@@ -1,4 +1,4 @@
-const CACHE_NAME = 'finances-jan-v2';
+const CACHE_NAME = 'mis-cuentas-pwa-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -27,20 +27,17 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
-  // No cachear llamadas de sincronización en la nube
-  if (url.hostname.includes('ntfy.sh') || url.hostname.includes('script.google.com')) {
+  if (url.hostname.includes('ntfy.sh') || url.hostname.includes('api.qrserver.com')) {
     return;
   }
+  // Network-first so updates always show immediately, falling back to cache offline
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const networked = fetch(event.request)
-        .then((response) => {
-          const clone = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-          return response;
-        })
-        .catch(() => cached);
-      return cached || networked;
-    })
+    fetch(event.request)
+      .then((response) => {
+        const clone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+        return response;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
