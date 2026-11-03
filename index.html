@@ -21,15 +21,35 @@
       -webkit-tap-highlight-color: transparent;
     }
     body {
-      background-color: #f1f5f9;
+      background: linear-gradient(135deg, #c7d2fe 0%, #dbeafe 30%, #e0e7ff 65%, #d1fae5 100%) fixed;
       color: #0f172a;
+    }
+    .sec-card-quick {
+      background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+      border-color: #a5b4fc;
+    }
+    .sec-card-extras {
+      background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #f3e8ff 100%);
+      border-color: #fda4af;
+    }
+    .sec-card-monthly {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border-color: #93c5fd;
+    }
+    .sec-card-annual {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+      border-color: #fcd34d;
+    }
+    .sec-card-breakdown {
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+      border-color: #6ee7b7;
     }
     .custom-scrollbar::-webkit-scrollbar {
       width: 6px;
       height: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
+      background: #94a3b8;
       border-radius: 9999px;
     }
     @keyframes fadeIn {
@@ -43,124 +63,155 @@
 </head>
 <body class="min-h-screen pb-24 md:pb-12">
 
-  <!-- CLEAN TOP HEADER -->
-  <header class="bg-slate-900 text-white pt-5 pb-6 px-4 border-b border-slate-800">
+  <!-- COLORFUL MODERN HEADER -->
+  <header class="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white pt-5 pb-6 px-4 border-b border-indigo-500/30 shadow-xl">
     <div class="max-w-5xl mx-auto">
 
       <!-- Top Bar: Title, Manual Month Selector, Analytics Modal Button, Categories -->
       <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
         <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-lg">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 border border-emerald-400/50 flex items-center justify-center text-xl shadow-md shadow-emerald-950/50">
             💶
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <h1 class="text-base sm:text-lg font-bold tracking-tight leading-none">Mis Cuentas</h1>
-              <span id="syncStatusDot" class="w-2 h-2 rounded-full bg-emerald-400" title="Sincronizado"></span>
+              <h1 class="text-base sm:text-lg font-extrabold tracking-tight leading-none text-white">Mis Cuentas</h1>
+              <span id="syncStatusDot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400" title="Sincronizado"></span>
             </div>
-            <p id="monthCarryoverNote" class="text-[11px] text-slate-400 mt-0.5">Cuentas independientes por mes</p>
+            <p id="monthCarryoverNote" class="text-[11px] text-indigo-200/80 mt-0.5 font-medium">Gestión mensual visual</p>
           </div>
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
           <!-- Manual Month Selector with Prev/Next buttons -->
-          <div class="flex items-center bg-slate-800 border border-slate-700 rounded-xl p-0.5">
-            <button type="button" onclick="stepMonth(-1)" title="Mes anterior" class="px-2.5 py-1.5 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg transition">
+          <div class="flex items-center bg-indigo-950/90 border border-indigo-400/40 rounded-xl p-0.5 shadow-inner">
+            <button type="button" onclick="stepMonth(-1)" title="Mes anterior" class="px-2.5 py-1.5 text-xs font-bold text-indigo-200 hover:text-white hover:bg-indigo-800/70 rounded-lg transition">
               ◀
             </button>
-            <select id="monthFilter" onchange="onManualMonthChange(this.value)" class="bg-slate-800 text-white text-xs sm:text-sm px-2 py-1.5 font-semibold focus:outline-none cursor-pointer">
+            <select id="monthFilter" onchange="onManualMonthChange(this.value)" class="bg-transparent text-white text-xs sm:text-sm px-2 py-1.5 font-bold focus:outline-none cursor-pointer">
             </select>
-            <button type="button" onclick="stepMonth(1)" title="Mes siguiente" class="px-2.5 py-1.5 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-700 rounded-lg transition">
+            <button type="button" onclick="stepMonth(1)" title="Mes siguiente" class="px-2.5 py-1.5 text-xs font-bold text-indigo-200 hover:text-white hover:bg-indigo-800/70 rounded-lg transition">
               ▶
             </button>
           </div>
 
           <!-- Monthly Charts & Comparison Window Button -->
-          <button onclick="openAnalyticsModal()" class="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 border border-indigo-500 text-white font-semibold text-xs sm:text-sm px-3 py-2 rounded-xl transition shadow-sm active:scale-95">
+          <button onclick="openAnalyticsModal()" class="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 border border-indigo-400/50 text-white font-bold text-xs sm:text-sm px-3 py-2 rounded-xl transition shadow-md active:scale-95">
             <span>📊 Gráficas y Meses</span>
           </button>
 
           <!-- App iPhone & PC Link / QR Modal Button -->
-          <button onclick="openAppInstallModal()" class="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 border border-emerald-500 text-white font-semibold text-xs sm:text-sm px-3 py-2 rounded-xl transition shadow-sm active:scale-95">
+          <button onclick="openAppInstallModal()" class="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 border border-emerald-400/50 text-white font-bold text-xs sm:text-sm px-3 py-2 rounded-xl transition shadow-md active:scale-95">
             <span>📱 App iPhone / PC</span>
           </button>
 
           <!-- Categories Manager Button -->
-          <button onclick="openCategoryManagerModal()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold text-xs sm:text-sm px-3 py-2 rounded-xl transition active:scale-95">
+          <button onclick="openCategoryManagerModal()" class="flex items-center gap-1.5 bg-slate-800/90 hover:bg-slate-700 border border-slate-600 text-white font-semibold text-xs sm:text-sm px-3 py-2 rounded-xl transition active:scale-95">
             <span>🏷️ Categorías</span>
           </button>
         </div>
       </div>
 
-      <!-- MAIN SUMMARY: INGRESOS POR UNA PARTE | GASTOS FIJOS Y VARIABLES POR OTRA | AHORROS MÁS PEQUEÑO -->
+      <!-- AVISO INTERACTIVO CUANDO PASAS AL MES SIGUIENTE Y TIENES SOBRANTE DEL MES ANTERIOR -->
+      <div id="carryoverPromptBanner" class="hidden mb-4 bg-gradient-to-r from-emerald-900/90 via-teal-900/90 to-indigo-900/90 border border-emerald-400/50 rounded-2xl p-3.5 sm:px-5 flex flex-wrap items-center justify-between gap-3 shadow-lg animate-fade-in">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">💰</span>
+          <div>
+            <p id="carryoverPromptTitle" class="text-xs sm:text-sm font-extrabold text-emerald-200">
+              ¿Pasar el sobrante del mes anterior a este mes?
+            </p>
+            <p id="carryoverPromptSubtitle" class="text-[11px] text-emerald-100/80">
+              El traspaso solo se hace cuando tú lo confirmas al cambiar de mes.
+            </p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="confirmTransferFromPrevMonth()" class="bg-emerald-400 hover:bg-emerald-300 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl transition shadow">
+            ✅ Sí, traspasar a este mes
+          </button>
+          <button type="button" onclick="dismissTransferPrompt()" class="bg-slate-800/80 hover:bg-slate-700 text-slate-200 font-semibold text-xs px-3 py-2 rounded-xl border border-slate-600 transition">
+            No traspasar
+          </button>
+        </div>
+      </div>
+
+      <!-- MAIN SUMMARY: INGRESOS POR UNA PARTE | GASTOS EXTRAS Y FIJOS POR OTRA -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-3.5 items-stretch">
 
-        <!-- 1. INGRESOS (Por una parte) -->
-        <div class="lg:col-span-4 bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex flex-col justify-between">
+        <!-- 1. INGRESOS (Tarjeta Esmeralda / Teal) -->
+        <div class="lg:col-span-4 bg-gradient-to-br from-emerald-950/85 via-slate-900/90 to-teal-950/80 border border-emerald-500/40 rounded-2xl p-4 flex flex-col justify-between shadow-lg">
           <div>
             <div class="flex items-center justify-between">
-              <span class="text-xs uppercase tracking-wider text-slate-300 font-bold">💼 Nómina e Ingresos (Mes)</span>
-              <button onclick="openSalaryModal()" class="text-[11px] bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 px-2 py-0.5 rounded-lg font-semibold transition">
+              <span class="text-xs uppercase tracking-wider text-emerald-300 font-extrabold">💼 Nómina e Ingresos (Mes)</span>
+              <button onclick="openSalaryModal()" class="text-[11px] bg-emerald-500/20 hover:bg-emerald-500/35 border border-emerald-400/40 text-emerald-200 px-2.5 py-1 rounded-lg font-bold transition">
                 ✏️ Nómina del mes
               </button>
             </div>
-            <p id="monthlyIncomeDisplay" onclick="openSalaryModal()" title="Clic para editar la nómina de este mes" class="text-2xl font-bold text-emerald-400 mt-1.5 cursor-pointer hover:underline decoration-emerald-500/50">+0,00 €</p>
-            <p id="extraIncomeSubtitle" onclick="openSalaryModal()" class="text-xs text-slate-400 mt-0.5 cursor-pointer hover:text-slate-300">Nómina exclusiva de este mes</p>
+            <p id="monthlyIncomeDisplay" onclick="openSalaryModal()" title="Clic para editar la nómina de este mes" class="text-2xl font-extrabold text-emerald-400 mt-1.5 cursor-pointer hover:underline decoration-emerald-500/50">+0,00 €</p>
+            <p id="extraIncomeSubtitle" onclick="openSalaryModal()" class="text-xs text-emerald-100/80 mt-0.5 cursor-pointer hover:text-white">Nómina exclusiva de este mes</p>
+
+            <!-- Badge / Control de sobrante recibido del mes anterior -->
+            <div id="carriedInBadgeContainer" class="mt-2"></div>
           </div>
 
-          <div class="mt-4 pt-3 border-t border-slate-700/70 flex items-center justify-between">
-            <div>
-              <span class="text-[11px] text-slate-400 block">Resultado / Libre este mes:</span>
-              <span id="monthlyLeftoverDisplay" class="text-base font-bold text-white">0,00 €</span>
+          <div class="mt-4 pt-3 border-t border-emerald-500/25 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[11px] text-emerald-200/80 block font-medium">Lo que me queda a final de mes:</span>
+                <span id="monthlyLeftoverDisplay" class="text-lg font-extrabold text-white">0,00 €</span>
+              </div>
+              <button onclick="openTransactionModal('income')" class="text-xs bg-emerald-600 hover:bg-emerald-500 px-3 py-1.5 rounded-xl font-bold text-white shadow transition">
+                + Ingreso Extra
+              </button>
             </div>
-            <button onclick="openTransactionModal('income')" class="text-xs bg-slate-700 hover:bg-slate-600 px-2.5 py-1.5 rounded-lg font-semibold text-slate-200 transition">
-              + Ingreso Extra
-            </button>
+
+            <!-- Botón manual para pasar lo que queda al mes siguiente cuando el usuario quiera -->
+            <div id="passToNextMonthBtnContainer"></div>
           </div>
         </div>
 
-        <!-- 2. GASTOS EXTRAS / VARIABLES Y FIJOS (Por otra parte) -->
-        <div class="lg:col-span-8 bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex flex-col justify-between">
+        <!-- 2. GASTOS EXTRAS / VARIABLES Y FIJOS (Tarjeta Indigo / Rose / Amber) -->
+        <div class="lg:col-span-8 bg-gradient-to-br from-indigo-950/85 via-slate-900/90 to-slate-900/95 border border-indigo-400/35 rounded-2xl p-4 flex flex-col justify-between shadow-lg">
           <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
             <div class="flex items-center gap-2">
-              <span class="text-xs uppercase tracking-wider text-slate-300 font-bold">📉 Gastos Extras y Fijos</span>
-              <span id="totalMonthExpensesBadge" class="text-xs font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded-md">-0,00 € en el mes</span>
+              <span class="text-xs uppercase tracking-wider text-indigo-200 font-extrabold">📉 Gastos Extras y Fijos</span>
+              <span id="totalMonthExpensesBadge" class="text-xs font-extrabold text-rose-300 bg-rose-500/20 border border-rose-400/30 px-2.5 py-0.5 rounded-lg">-0,00 € en el mes</span>
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
             <!-- 1º Gastos Extras / Variables del Mes (ARRIBA / PRIMERO) -->
-            <div class="bg-slate-900/90 border border-rose-500/40 rounded-lg p-3 flex items-center justify-between">
+            <div class="bg-gradient-to-br from-rose-950/90 to-slate-900/95 border border-rose-500/50 rounded-xl p-3 flex items-center justify-between shadow-md">
               <div>
-                <span class="text-[11px] text-rose-300 font-bold block">💸 Gastos Extras (Mes)</span>
-                <p id="variableExpenseTotalDisplay" class="text-base font-bold text-rose-400 mt-0.5">-0,00 €</p>
-                <p id="variableExpenseCountLabel" class="text-[10px] text-slate-400">Pádel, Ocio, Cena...</p>
+                <span class="text-[11px] text-rose-300 font-extrabold block">💸 Gastos Extras (Mes)</span>
+                <p id="variableExpenseTotalDisplay" class="text-base font-extrabold text-rose-400 mt-0.5">-0,00 €</p>
+                <p id="variableExpenseCountLabel" class="text-[10px] text-rose-200/70">No viajan al mes sig.</p>
               </div>
-              <button onclick="openTransactionModal('expense')" class="bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs px-2.5 py-1.5 rounded-lg transition shadow">
+              <button onclick="openTransactionModal('expense')" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-2.5 py-1.5 rounded-lg transition shadow">
                 + Gasto
               </button>
             </div>
 
             <!-- 2º Fijos Mensuales -->
-            <div class="bg-slate-900/70 border border-slate-700/70 rounded-lg p-3 flex items-center justify-between">
+            <div class="bg-gradient-to-br from-blue-950/85 to-slate-900/95 border border-blue-400/40 rounded-xl p-3 flex items-center justify-between shadow-md">
               <div>
-                <span class="text-[11px] text-slate-400 font-semibold block">📅 Fijos Mensuales</span>
-                <p id="fixedMonthlyTotalDisplay" class="text-base font-bold text-white mt-0.5">-0,00 €</p>
-                <p id="fixedMonthlyCountLabel" class="text-[10px] text-slate-400">Alquiler, Pareja...</p>
+                <span class="text-[11px] text-blue-300 font-extrabold block">📅 Fijos Mensuales</span>
+                <p id="fixedMonthlyTotalDisplay" class="text-base font-extrabold text-white mt-0.5">-0,00 €</p>
+                <p id="fixedMonthlyCountLabel" class="text-[10px] text-blue-200/70">Viajan cada mes</p>
               </div>
-              <button onclick="openFixedItemModal('monthly')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs px-2.5 py-1.5 rounded-lg border border-slate-600 transition">
+              <button onclick="openFixedItemModal('monthly')" class="bg-blue-600/80 hover:bg-blue-500 text-white font-bold text-xs px-2.5 py-1.5 rounded-lg border border-blue-400/40 transition">
                 + Fijo
               </button>
             </div>
 
             <!-- 3º Fijos Anuales -->
-            <div class="bg-slate-900/70 border border-slate-700/70 rounded-lg p-3 flex items-center justify-between">
+            <div class="bg-gradient-to-br from-amber-950/85 to-slate-900/95 border border-amber-400/40 rounded-xl p-3 flex items-center justify-between shadow-md">
               <div>
-                <span class="text-[11px] text-slate-400 font-semibold block">🗓️ Fijos Anuales</span>
-                <p id="fixedAnnualTotalDisplay" class="text-base font-bold text-white mt-0.5">-0,00 €<span class="text-[10px] font-normal text-slate-400">/año</span></p>
-                <p id="fixedAnnualMonthlyEqLabel" class="text-[10px] text-slate-400">0,00 €/mes</p>
+                <span class="text-[11px] text-amber-300 font-extrabold block">🗓️ Fijos Anuales</span>
+                <p id="fixedAnnualTotalDisplay" class="text-base font-extrabold text-white mt-0.5">-0,00 €<span class="text-[10px] font-normal text-amber-200/70">/año</span></p>
+                <p id="fixedAnnualMonthlyEqLabel" class="text-[10px] text-amber-200/70">En su mes de cobro</p>
               </div>
-              <button onclick="openFixedItemModal('annual')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs px-2.5 py-1.5 rounded-lg border border-slate-600 transition">
+              <button onclick="openFixedItemModal('annual')" class="bg-amber-600/80 hover:bg-amber-500 text-white font-bold text-xs px-2.5 py-1.5 rounded-lg border border-amber-400/40 transition">
                 + Anual
               </button>
             </div>
@@ -169,18 +220,18 @@
 
       </div>
 
-      <!-- 3. RESUMEN EXCLUSIVO DEL MES Y ACCESO A VENTANA DE GRÁFICAS Y COMPARATIVA -->
-      <div class="mt-3 bg-slate-800/60 border border-slate-700/80 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <!-- 3. BARRA INFERIOR DE RESUMEN Y ACCESO A GRÁFICAS -->
+      <div class="mt-3 bg-indigo-950/70 border border-indigo-400/30 rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs">
         <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-          <span class="text-slate-300 font-semibold flex items-center gap-1.5">
-            <span>📌 Resultado exclusivo de este mes:</span>
-            <strong id="totalWealthDisplay" class="text-emerald-400 text-sm font-bold">0,00 €</strong>
+          <span class="text-indigo-100 font-semibold flex items-center gap-1.5">
+            <span>📌 Disponible a final de mes:</span>
+            <strong id="totalWealthDisplay" class="text-emerald-400 text-sm font-extrabold">0,00 €</strong>
           </span>
-          <span id="baseSavingsSubtitle" class="text-slate-400 text-[11px]">
-            (Sin arrastrar meses anteriores)
+          <span id="baseSavingsSubtitle" class="text-indigo-200/80 text-[11px]">
+            (Fijos viajan de mes a mes • Extras y Nómina por mes)
           </span>
         </div>
-        <button onclick="openAnalyticsModal()" class="text-xs bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/40 px-3 py-1 rounded-lg font-semibold transition flex items-center gap-1.5">
+        <button onclick="openAnalyticsModal()" class="text-xs bg-indigo-500/30 hover:bg-indigo-500/45 text-indigo-100 border border-indigo-400/40 px-3 py-1 rounded-lg font-bold transition flex items-center gap-1.5">
           <span>📊 Abrir Gráficas y Comparativa de Meses</span>
         </button>
       </div>
@@ -189,20 +240,20 @@
   </header>
 
   <!-- MAIN CONTENT -->
-  <main class="max-w-5xl mx-auto px-4 mt-6 space-y-4">
+  <main class="max-w-5xl mx-auto px-4 mt-6 space-y-5">
 
     <!-- APARTADO 1: Quick Category Buttons Bar (Desplegable con 1 clic) -->
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-      <div onclick="toggleSection('sec_quick')" class="flex items-center justify-between p-4 cursor-pointer select-none hover:bg-slate-50/80 transition">
+    <section class="sec-card-quick rounded-2xl overflow-hidden">
+      <div onclick="toggleSection('sec_quick')" class="flex items-center justify-between p-4 cursor-pointer select-none hover:bg-indigo-100/40 transition">
         <div class="flex items-center gap-2.5">
-          <span id="chevron_sec_quick" class="text-xs text-slate-400 font-bold w-4 text-center transition-transform">▼</span>
-          <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-700">⚡ Apuntar gasto extra rápido (toca una categoría)</h2>
+          <span id="chevron_sec_quick" class="text-xs text-indigo-600 font-bold w-5 h-5 rounded-md bg-indigo-100 flex items-center justify-center transition-transform">▼</span>
+          <h2 class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-indigo-950">⚡ Apuntar gasto extra rápido (toca una categoría)</h2>
         </div>
-        <button onclick="event.stopPropagation(); openCategoryManagerModal()" class="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-emerald-50 transition">
-          <span>+ Crear / Editar Categorías</span>
+        <button onclick="event.stopPropagation(); openCategoryManagerModal()" class="text-xs font-bold text-indigo-700 bg-indigo-100/90 hover:bg-indigo-200 border border-indigo-200 flex items-center gap-1 px-2.5 py-1.5 rounded-xl transition shadow-sm">
+          <span>🎨 + Crear / Editar Categorías</span>
         </button>
       </div>
-      <div id="sec_quick" class="px-4 pb-4 pt-1 border-t border-slate-100">
+      <div id="sec_quick" class="px-4 pb-4 pt-2 border-t border-indigo-200/60">
         <div id="quickCategoryBar" class="flex items-center gap-2 overflow-x-auto pb-1.5 custom-scrollbar">
           <!-- Populated by JS -->
         </div>
@@ -210,30 +261,30 @@
     </section>
 
     <!-- APARTADO 2 (ARRIBA DEL TODO): GASTOS EXTRAS / VARIABLES E INGRESOS DEL MES -->
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-      <div onclick="toggleSection('sec_extras')" class="flex flex-wrap items-center justify-between gap-2 p-4 sm:px-5 cursor-pointer select-none hover:bg-slate-50/80 transition">
+    <section class="sec-card-extras rounded-2xl overflow-hidden">
+      <div onclick="toggleSection('sec_extras')" class="flex flex-wrap items-center justify-between gap-2 p-4 sm:px-5 cursor-pointer select-none hover:bg-rose-100/40 transition">
         <div class="flex items-center gap-2.5">
-          <span id="chevron_sec_extras" class="text-xs text-slate-400 font-bold w-4 text-center transition-transform">▼</span>
+          <span id="chevron_sec_extras" class="text-xs text-rose-600 font-bold w-5 h-5 rounded-md bg-rose-100 flex items-center justify-center transition-transform">▼</span>
           <div>
             <div class="flex flex-wrap items-center gap-2">
-              <h2 class="font-bold text-slate-800 text-base">💸 Gastos Extras e Ingresos del Mes</h2>
-              <span id="sectionExtrasBadge" class="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-lg">-0,00 €</span>
+              <h2 class="font-extrabold text-rose-950 text-base">💸 Gastos Extras e Ingresos del Mes</h2>
+              <span id="sectionExtrasBadge" class="text-xs font-extrabold text-rose-700 bg-rose-100/90 border border-rose-300 px-2.5 py-0.5 rounded-lg shadow-sm">-0,00 €</span>
             </div>
-            <p class="text-xs text-slate-500">Pádel, Ocio, Cenas, Compras e Ingresos extras</p>
+            <p class="text-xs text-rose-800/80 font-medium">Exclusivos de este mes (no se copian al mes siguiente) • Pádel, Ocio, Cenas, Compras...</p>
           </div>
         </div>
 
         <div class="flex items-center gap-2" onclick="event.stopPropagation()">
-          <button onclick="openTransactionModal('expense')" class="bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm">
+          <button onclick="openTransactionModal('expense')" class="bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl transition shadow-md">
             + Gasto Extra
           </button>
-          <button onclick="openTransactionModal('income')" class="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3 py-2 rounded-xl transition shadow-sm">
+          <button onclick="openTransactionModal('income')" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl transition shadow-md">
             + Ingreso Extra
           </button>
         </div>
       </div>
 
-      <div id="sec_extras" class="px-5 pb-5 pt-3 border-t border-slate-100">
+      <div id="sec_extras" class="px-5 pb-5 pt-3 border-t border-rose-200/60">
         <!-- Search & Category Filter Row -->
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 mb-4">
           <div class="relative flex-1">
@@ -242,70 +293,70 @@
               type="text"
               oninput="renderApp()"
               placeholder="Buscar gasto o ingreso (ej: pádel, cena, bizum...)"
-              class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-800 focus:bg-white transition"
+              class="w-full bg-white/90 border border-rose-200 rounded-xl pl-9 pr-4 py-2 text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:bg-white transition shadow-sm"
             />
-            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-rose-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
             </svg>
           </div>
 
-          <select id="categoryFilter" onchange="renderApp()" class="bg-slate-100 border border-slate-200 text-slate-700 text-xs rounded-xl px-3 py-2.5 font-semibold focus:outline-none">
+          <select id="categoryFilter" onchange="renderApp()" class="bg-white/90 border border-rose-200 text-slate-700 text-xs rounded-xl px-3 py-2.5 font-bold focus:outline-none shadow-sm">
             <option value="all">Todas las categorías</option>
           </select>
         </div>
 
         <!-- Transactions Container -->
-        <div id="transactionsList" class="space-y-2 max-h-[520px] overflow-y-auto pr-1 custom-scrollbar">
+        <div id="transactionsList" class="space-y-2.5 max-h-[520px] overflow-y-auto pr-1 custom-scrollbar">
           <!-- Populated by JS -->
         </div>
       </div>
     </section>
 
     <!-- APARTADOS 3 Y 4: GASTOS FIJOS MENSUALES Y GASTOS FIJOS ANUALES (DEBAJO DE LOS EXTRAS) -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-start">
       <!-- Fixed Monthly Expenses List -->
-      <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-        <div onclick="toggleSection('sec_fixed_monthly')" class="flex items-center justify-between p-4 sm:px-5 cursor-pointer select-none hover:bg-slate-50/80 transition">
+      <section class="sec-card-monthly rounded-2xl overflow-hidden">
+        <div onclick="toggleSection('sec_fixed_monthly')" class="flex items-center justify-between p-4 sm:px-5 cursor-pointer select-none hover:bg-blue-100/40 transition">
           <div class="flex items-center gap-2.5 min-w-0">
-            <span id="chevron_sec_fixed_monthly" class="text-xs text-slate-400 font-bold w-4 text-center transition-transform">▼</span>
+            <span id="chevron_sec_fixed_monthly" class="text-xs text-blue-600 font-bold w-5 h-5 rounded-md bg-blue-100 flex items-center justify-center transition-transform">▼</span>
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-2">
-                <h2 class="font-bold text-slate-800 text-base">📅 Gastos Fijos Mensuales</h2>
-                <span id="sectionFixedMonthlyBadge" class="text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-lg">-0,00 €</span>
+                <h2 class="font-extrabold text-blue-950 text-base">📅 Gastos Fijos Mensuales</h2>
+                <span id="sectionFixedMonthlyBadge" class="text-xs font-extrabold text-blue-800 bg-blue-100/90 border border-blue-300 px-2.5 py-0.5 rounded-lg shadow-sm">-0,00 €</span>
               </div>
-              <p class="text-xs text-slate-500 truncate">Alquiler, Cuenta Pareja...</p>
+              <p class="text-xs text-blue-800/80 font-medium truncate">Viajan de mes a mes • Alquiler, Cuenta Pareja...</p>
             </div>
           </div>
-          <button onclick="event.stopPropagation(); openFixedItemModal('monthly')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-3 py-2 rounded-xl transition shrink-0 ml-2">
+          <button onclick="event.stopPropagation(); openFixedItemModal('monthly')" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl transition shadow-md shrink-0 ml-2">
             + Fijo Mes
           </button>
         </div>
-        <div id="sec_fixed_monthly" class="px-5 pb-5 pt-3 border-t border-slate-100">
-          <div id="fixedMonthlyList" class="space-y-2">
+        <div id="sec_fixed_monthly" class="px-5 pb-5 pt-3 border-t border-blue-200/60">
+          <div id="fixedMonthlyList" class="space-y-2.5">
             <!-- Populated by JS -->
           </div>
         </div>
       </section>
 
       <!-- Fixed Annual Expenses List -->
-      <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-        <div onclick="toggleSection('sec_fixed_annual')" class="flex items-center justify-between p-4 sm:px-5 cursor-pointer select-none hover:bg-slate-50/80 transition">
+      <section class="sec-card-annual rounded-2xl overflow-hidden">
+        <div onclick="toggleSection('sec_fixed_annual')" class="flex items-center justify-between p-4 sm:px-5 cursor-pointer select-none hover:bg-amber-100/40 transition">
           <div class="flex items-center gap-2.5 min-w-0">
-            <span id="chevron_sec_fixed_annual" class="text-xs text-slate-400 font-bold w-4 text-center transition-transform">▼</span>
+            <span id="chevron_sec_fixed_annual" class="text-xs text-amber-700 font-bold w-5 h-5 rounded-md bg-amber-100 flex items-center justify-center transition-transform">▼</span>
             <div class="min-w-0">
               <div class="flex flex-wrap items-center gap-2">
-                <h2 class="font-bold text-slate-800 text-base">🗓️ Gastos Fijos Anuales</h2>
-                <span id="sectionFixedAnnualBadge" class="text-xs font-bold text-slate-700 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-lg">0,00 €</span>
+                <h2 class="font-extrabold text-amber-950 text-base">🗓️ Gastos Fijos Anuales</h2>
+                <span id="sectionFixedAnnualBadge" class="text-xs font-extrabold text-amber-900 bg-amber-100/90 border border-amber-300 px-2.5 py-0.5 rounded-lg shadow-sm">0,00 €</span>
               </div>
-              <p class="text-xs text-slate-500 truncate">Seguro Coche, Suscripciones...</p>
+              <p class="text-xs text-amber-900/80 font-medium truncate">Viajan de mes a mes • Seguro Coche, Suscripciones...</p>
             </div>
           </div>
-          <button onclick="event.stopPropagation(); openFixedItemModal('annual')" class="bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs px-3 py-2 rounded-xl transition shrink-0 ml-2">
+          <button onclick="event.stopPropagation(); openFixedItemModal('annual')" class="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl transition shadow-md shrink-0 ml-2">
             + Fijo Anual
           </button>
         </div>
-        <div id="sec_fixed_annual" class="px-5 pb-5 pt-3 border-t border-slate-100">
-          <div id="fixedAnnualList" class="space-y-2">
+        <div id="sec_fixed_annual" class="px-5 pb-5 pt-3 border-t border-amber-200/60">
+          <div id="fixedAnnualList" class="space-y-2.5">
             <!-- Populated by JS -->
           </div>
         </div>
@@ -313,16 +364,16 @@
     </div>
 
     <!-- APARTADO 5: DESGLOSE POR CATEGORÍAS (DESPLEGABLE CON 1 CLIC) -->
-    <section class="bg-white rounded-2xl shadow-sm border border-slate-200/80 overflow-hidden">
-      <div onclick="toggleSection('sec_breakdown')" class="flex items-center justify-between p-4 sm:px-5 cursor-pointer select-none hover:bg-slate-50/80 transition">
+    <section class="sec-card-breakdown rounded-2xl overflow-hidden">
+      <div onclick="toggleSection('sec_breakdown')" class="flex items-center justify-between p-4 sm:px-5 cursor-pointer select-none hover:bg-purple-100/40 transition">
         <div class="flex items-center gap-2.5">
-          <span id="chevron_sec_breakdown" class="text-xs text-slate-400 font-bold w-4 text-center transition-transform">▼</span>
-          <h2 class="font-bold text-slate-800 text-base">📊 Desglose por Categorías (Mes)</h2>
+          <span id="chevron_sec_breakdown" class="text-xs text-purple-700 font-bold w-5 h-5 rounded-md bg-purple-100 flex items-center justify-center transition-transform">▼</span>
+          <h2 class="font-extrabold text-purple-950 text-base">📊 Desglose por Categorías (Mes)</h2>
         </div>
-        <span id="categoryTotalLabel" class="text-xs font-bold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg"></span>
+        <span id="categoryTotalLabel" class="text-xs font-extrabold text-purple-900 bg-purple-100/90 border border-purple-300 px-2.5 py-1 rounded-lg shadow-sm"></span>
       </div>
 
-      <div id="sec_breakdown" class="px-5 pb-5 pt-3 border-t border-slate-100">
+      <div id="sec_breakdown" class="px-5 pb-5 pt-3 border-t border-purple-200/60">
         <div id="categoryBreakdownList" class="space-y-3.5">
           <!-- Populated by JS -->
         </div>
@@ -332,14 +383,14 @@
   </main>
 
   <!-- MOBILE FLOATING BOTTOM BAR (Clean: Gasto, Fijo, Categorías) -->
-  <nav class="fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-2.5 flex items-center justify-around md:hidden z-30 shadow-lg">
-    <button onclick="openTransactionModal('expense')" class="flex items-center gap-1 bg-rose-600 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow active:scale-95">
+  <nav class="fixed bottom-0 inset-x-0 bg-slate-900/95 backdrop-blur-md border-t border-indigo-500/30 px-3 py-2.5 flex items-center justify-around md:hidden z-30 shadow-2xl">
+    <button onclick="openTransactionModal('expense')" class="flex items-center gap-1 bg-gradient-to-r from-rose-500 to-pink-600 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow active:scale-95">
       <span>+ Añadir Gasto</span>
     </button>
-    <button onclick="openFixedItemModal('monthly')" class="flex items-center gap-1 bg-slate-900 text-white font-bold text-xs px-3.5 py-2.5 rounded-xl shadow active:scale-95">
+    <button onclick="openFixedItemModal('monthly')" class="flex items-center gap-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-extrabold text-xs px-3.5 py-2.5 rounded-xl shadow active:scale-95">
       <span>+ Gasto Fijo</span>
     </button>
-    <button onclick="openCategoryManagerModal()" class="flex items-center gap-1 bg-slate-100 text-slate-800 border border-slate-300 font-bold text-xs px-3.5 py-2.5 rounded-xl active:scale-95">
+    <button onclick="openCategoryManagerModal()" class="flex items-center gap-1 bg-indigo-950 text-indigo-200 border border-indigo-700 font-bold text-xs px-3.5 py-2.5 rounded-xl active:scale-95">
       <span>🏷️ Categorías</span>
     </button>
   </nav>
@@ -938,14 +989,15 @@
     let collapsedSections = {};
 
     let appState = {
-      startMonth: '2026-10',    // Mes inicial de la cuenta
-      selectedMonth: '2026-10', // Mes seleccionado manualmente por el usuario
-      baseSavings: 0,           // Lo que tienes ahorrado al empezar (Octubre 2026)
-      fixedSalary: 0,           // Legacy (ya no se usa globalmente, ahora va por mes en monthlySalaries)
-      monthlySalaries: {},      // Nómina independiente de cada mes: { '2026-10': { amount: 1500, updatedAt: ... } }
-      prorateAnnual: true,      // Si se descuenta 1/12 de los anuales cada mes
-      fixedExpenses: [],        // Gastos fijos mensuales y anuales (se mantienen entre meses)
-      transactions: [],         // Gastos variables e ingresos puntuales (exclusivos de su mes)
+      startMonth: '2026-10',        // Mes inicial de la lista
+      selectedMonth: '2026-11',     // Mes seleccionado manualmente por el usuario (por defecto Noviembre 2026)
+      baseSavings: 0,               // Ahorro base opcional
+      fixedSalary: 0,               // Legacy
+      monthlySalaries: {},          // Nómina independiente de cada mes: { '2026-11': { amount: 1500, updatedAt: ... } }
+      transferredLeftover: {},      // Sobrante traspasado manualmente al pasar de mes: { '2026-12': { active: true, amount: 450, fromMonth: '2026-11', dismissed: false, updatedAt: ... } }
+      prorateAnnual: true,
+      fixedExpenses: [],            // Gastos fijos mensuales y anuales (sí viajan de mes a mes)
+      transactions: [],             // Gastos extras e ingresos puntuales (exclusivos de su mes, no viajan)
       customCategories: { expense: [], income: [] },
       deletedDefaultCategories: [],
       updatedAt: 0
@@ -1021,22 +1073,32 @@
         if (raw) {
           const parsed = JSON.parse(raw);
           appState.startMonth = parsed.startMonth || '2026-10';
-          appState.selectedMonth = parsed.selectedMonth || parsed.startMonth || '2026-10';
+          appState.selectedMonth = parsed.selectedMonth || '2026-11';
           appState.baseSavings = Number(parsed.baseSavings) || 0;
           appState.fixedSalary = 0;
           appState.monthlySalaries = (parsed.monthlySalaries && typeof parsed.monthlySalaries === 'object')
             ? parsed.monthlySalaries
             : {};
+          appState.transferredLeftover = (parsed.transferredLeftover && typeof parsed.transferredLeftover === 'object')
+            ? parsed.transferredLeftover
+            : {};
 
           // Migrate any legacy global salary only to the currently selected month so it doesn't repeat in other months
           if (Number(parsed.fixedSalary) > 0) {
-            const curYM = appState.selectedMonth || '2026-10';
+            const curYM = appState.selectedMonth || '2026-11';
             if (!appState.monthlySalaries[curYM]) {
               appState.monthlySalaries[curYM] = {
                 amount: Number(parsed.fixedSalary),
                 updatedAt: Date.now()
               };
             }
+          }
+
+          // If selectedMonth was '2026-10' and '2026-10' has no salary or transactions, default to '2026-11' (Noviembre 2026)
+          const hasOctSalary = appState.monthlySalaries['2026-10'] && Number(appState.monthlySalaries['2026-10'].amount || appState.monthlySalaries['2026-10']) > 0;
+          const hasOctTx = Array.isArray(parsed.transactions) && parsed.transactions.some(t => !t.deleted && (t.date || '').startsWith('2026-10'));
+          if (appState.selectedMonth === '2026-10' && !hasOctSalary && !hasOctTx) {
+            appState.selectedMonth = '2026-11';
           }
 
           appState.prorateAnnual = parsed.prorateAnnual !== undefined ? Boolean(parsed.prorateAnnual) : true;
@@ -1057,8 +1119,10 @@
           appState.baseSavings = 0;
           appState.fixedSalary = 0;
           appState.monthlySalaries = {};
+          appState.transferredLeftover = {};
           appState.fixedExpenses = [];
           appState.transactions = [];
+          appState.selectedMonth = '2026-11';
           appState.updatedAt = Date.now();
           localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
           localStorage.setItem(MONEY_WIPE_KEY, 'done');
@@ -1069,6 +1133,7 @@
     }
 
     function saveLocalData(touchTimestamp = true) {
+      refreshActiveTransfers();
       if (touchTimestamp) {
         appState.updatedAt = Date.now();
       }
@@ -1146,7 +1211,7 @@
       }
       select.innerHTML = html;
 
-      const targetMonth = appState.selectedMonth || appState.startMonth || '2026-10';
+      const targetMonth = appState.selectedMonth || '2026-11';
       if (chronological.includes(targetMonth)) {
         select.value = targetMonth;
       } else {
@@ -1155,10 +1220,44 @@
       }
     }
 
+    function hasMonthOwnActivity(ym) {
+      if (!ym) return false;
+      if (getMonthlySalary(ym) > 0) return true;
+      const txs = getActiveTransactions().filter(tx => (tx.date || '').startsWith(ym));
+      if (txs.length > 0) return true;
+      const tr = appState.transferredLeftover && appState.transferredLeftover[ym];
+      if (tr && tr.active) return true;
+      return false;
+    }
+
     function onManualMonthChange(newYM) {
       if (!newYM) return;
+      const prevSelected = appState.selectedMonth;
       appState.selectedMonth = newYM;
       document.getElementById('monthFilter').value = newYM;
+
+      // Si el usuario pasa manualmente de un mes al mes inmediatamente siguiente (ej. Noviembre -> Diciembre)
+      // y el mes del que viene tenía datos (nómina, ingresos o gastos), traspasar automáticamente lo que le quede a final de mes
+      if (prevSelected && newYM === addMonthsToYM(prevSelected, 1)) {
+        const prevStats = computeMonthStats(prevSelected);
+        if (hasMonthOwnActivity(prevSelected) && prevStats.netMonth !== 0) {
+          if (!appState.transferredLeftover || typeof appState.transferredLeftover !== 'object') {
+            appState.transferredLeftover = {};
+          }
+          const existing = appState.transferredLeftover[newYM];
+          if (!existing || !existing.dismissed) {
+            appState.transferredLeftover[newYM] = {
+              active: true,
+              amount: prevStats.netMonth,
+              fromMonth: prevSelected,
+              dismissed: false,
+              updatedAt: Date.now()
+            };
+            showToast(`🔄 Sobrante de ${formatMonthLabel(prevSelected)} (${prevStats.netMonth >= 0 ? '+' : ''}${formatCurrency(prevStats.netMonth)}) pasado a ${formatMonthLabel(newYM)}`);
+          }
+        }
+      }
+
       saveLocalData();
       renderApp();
       pushToCloud();
@@ -1166,7 +1265,7 @@
 
     function stepMonth(delta) {
       const chronological = getChronologicalMonthsList();
-      const current = document.getElementById('monthFilter').value || appState.selectedMonth || '2026-10';
+      const current = document.getElementById('monthFilter').value || appState.selectedMonth || '2026-11';
       const idx = chronological.indexOf(current);
       if (idx === -1) return;
       const nextIdx = idx + delta;
@@ -1176,7 +1275,7 @@
     }
 
     // ==========================================
-    // CUMULATIVE MONTH-OVER-MONTH CARRYOVER ENGINE
+    // MANUAL MONTH-TO-MONTH LEFTOVER TRANSFER ENGINE
     // ==========================================
     function getMonthlySalary(ym) {
       if (!appState.monthlySalaries || !ym) return 0;
@@ -1184,6 +1283,108 @@
       if (entry === undefined || entry === null) return 0;
       if (typeof entry === 'object') return Number(entry.amount) || 0;
       return Number(entry) || 0;
+    }
+
+    function getTransferredLeftoverEntry(ym) {
+      if (!appState.transferredLeftover || !ym) return null;
+      const entry = appState.transferredLeftover[ym];
+      if (!entry || typeof entry !== 'object') return null;
+      return entry;
+    }
+
+    function refreshActiveTransfers() {
+      if (!appState.transferredLeftover || typeof appState.transferredLeftover !== 'object') return;
+      const chronological = getChronologicalMonthsList();
+      for (const ym of chronological) {
+        const entry = appState.transferredLeftover[ym];
+        if (entry && entry.active) {
+          const fromYM = entry.fromMonth || addMonthsToYM(ym, -1);
+          const prevStats = computeMonthStats(fromYM);
+          entry.amount = prevStats.netMonth;
+          entry.fromMonth = fromYM;
+        }
+      }
+    }
+
+    async function passLeftoverToNextMonth() {
+      const currentYM = document.getElementById('monthFilter').value || appState.selectedMonth || '2026-11';
+      const nextYM = addMonthsToYM(currentYM, 1);
+      const st = computeMonthStats(currentYM);
+
+      if (!appState.transferredLeftover || typeof appState.transferredLeftover !== 'object') {
+        appState.transferredLeftover = {};
+      }
+      appState.transferredLeftover[nextYM] = {
+        active: true,
+        amount: st.netMonth,
+        fromMonth: currentYM,
+        dismissed: false,
+        updatedAt: Date.now()
+      };
+
+      appState.selectedMonth = nextYM;
+      populateMonthFilter();
+      document.getElementById('monthFilter').value = nextYM;
+      saveLocalData();
+      renderApp();
+      showToast(`✅ Sobrante de ${formatMonthLabel(currentYM)} (${st.netMonth >= 0 ? '+' : ''}${formatCurrency(st.netMonth)}) pasado a ${formatMonthLabel(nextYM)}`);
+      await pushToCloud();
+    }
+
+    async function confirmTransferFromPrevMonth(targetYM = null) {
+      const currentYM = targetYM || document.getElementById('monthFilter').value || appState.selectedMonth || '2026-11';
+      const prevYM = addMonthsToYM(currentYM, -1);
+      const prevStats = computeMonthStats(prevYM);
+
+      if (!appState.transferredLeftover || typeof appState.transferredLeftover !== 'object') {
+        appState.transferredLeftover = {};
+      }
+      appState.transferredLeftover[currentYM] = {
+        active: true,
+        amount: prevStats.netMonth,
+        fromMonth: prevYM,
+        dismissed: false,
+        updatedAt: Date.now()
+      };
+      saveLocalData();
+      renderApp();
+      showToast(`✅ Sobrante de ${formatMonthLabel(prevYM)} (${prevStats.netMonth >= 0 ? '+' : ''}${formatCurrency(prevStats.netMonth)}) añadido a ${formatMonthLabel(currentYM)}`);
+      await pushToCloud();
+    }
+
+    async function dismissTransferPrompt(targetYM = null) {
+      const currentYM = targetYM || document.getElementById('monthFilter').value || appState.selectedMonth || '2026-11';
+      if (!appState.transferredLeftover || typeof appState.transferredLeftover !== 'object') {
+        appState.transferredLeftover = {};
+      }
+      appState.transferredLeftover[currentYM] = {
+        active: false,
+        amount: 0,
+        fromMonth: addMonthsToYM(currentYM, -1),
+        dismissed: true,
+        updatedAt: Date.now()
+      };
+      saveLocalData();
+      renderApp();
+      await pushToCloud();
+    }
+
+    async function removeTransferredLeftover(targetYM = null) {
+      const currentYM = targetYM || document.getElementById('monthFilter').value || appState.selectedMonth || '2026-11';
+      if (!appState.transferredLeftover || typeof appState.transferredLeftover !== 'object') {
+        appState.transferredLeftover = {};
+      }
+      appState.transferredLeftover[currentYM] = {
+        active: false,
+        amount: 0,
+        fromMonth: addMonthsToYM(currentYM, -1),
+        dismissed: true,
+        updatedAt: Date.now()
+      };
+      saveLocalData();
+      renderApp();
+      showToast(`Sobrante del mes anterior quitado de ${formatMonthLabel(currentYM)}`);
+      await pushToCloud();
     }
 
     function computeMonthStats(ym) {
@@ -1215,7 +1416,14 @@
 
       // La nómina y los ingresos varían según el mes (no se copian de un mes a otro)
       const fixedSalary = getMonthlySalary(ym);
-      const totalIncome = fixedSalary + extraIncome;
+
+      // Sobrante traspasado del mes anterior (SOLO si el usuario ha pasado de mes / confirmado el traspaso)
+      const transferEntry = getTransferredLeftoverEntry(ym);
+      const hasCarriedFromPrev = Boolean(transferEntry && transferEntry.active);
+      const carriedFromPrev = hasCarriedFromPrev ? (Number(transferEntry.amount) || 0) : 0;
+      const carriedFromMonth = (transferEntry && transferEntry.fromMonth) || addMonthsToYM(ym, -1);
+
+      const totalIncome = fixedSalary + extraIncome + carriedFromPrev;
       const totalExpenses = fixedMonthlyTotal + annualDeductionForMonth + variableExpenses;
       const netMonth = totalIncome - totalExpenses;
 
@@ -1224,6 +1432,9 @@
         monthNum,
         fixedSalary,
         extraIncome,
+        hasCarriedFromPrev,
+        carriedFromPrev,
+        carriedFromMonth,
         totalIncome,
         fixedMonthlyTotal,
         fixedAnnualTotal,
@@ -1239,32 +1450,11 @@
     }
 
     function computeCarryoverUpToMonth(targetYM) {
-      const chronological = getChronologicalMonthsList();
-      let runningSavings = Number(appState.baseSavings) || 0;
-      let savingsAtStartOfTarget = runningSavings;
-      let targetStats = null;
-
-      for (const ym of chronological) {
-        const stats = computeMonthStats(ym);
-        if (ym === targetYM) {
-          savingsAtStartOfTarget = runningSavings;
-          runningSavings += stats.netMonth;
-          targetStats = stats;
-          break;
-        }
-        runningSavings += stats.netMonth;
-      }
-
-      if (!targetStats) {
-        targetStats = computeMonthStats(targetYM);
-        savingsAtStartOfTarget = runningSavings;
-        runningSavings += targetStats.netMonth;
-      }
-
+      const stats = computeMonthStats(targetYM);
       return {
-        savingsBeforeMonth: savingsAtStartOfTarget,
-        savingsEndOfMonth: runningSavings,
-        stats: targetStats
+        savingsBeforeMonth: stats.carriedFromPrev,
+        savingsEndOfMonth: stats.netMonth,
+        stats
       };
     }
 
@@ -1298,6 +1488,28 @@
           const curUpdated = (typeof curVal === 'object' && curVal !== null) ? (Number(curVal.updatedAt) || 0) : 0;
           if (!curVal || incObj.updatedAt > curUpdated) {
             appState.monthlySalaries[ym] = incObj;
+            changed = true;
+          }
+        }
+      }
+
+      if (incoming.transferredLeftover && typeof incoming.transferredLeftover === 'object') {
+        if (!appState.transferredLeftover || typeof appState.transferredLeftover !== 'object') {
+          appState.transferredLeftover = {};
+        }
+        for (const [ym, incTr] of Object.entries(incoming.transferredLeftover)) {
+          if (!incTr || typeof incTr !== 'object') continue;
+          const curTr = appState.transferredLeftover[ym];
+          const curUpdated = curTr ? (Number(curTr.updatedAt) || 0) : 0;
+          const incUpdated = Number(incTr.updatedAt) || Number(incoming.updatedAt) || 0;
+          if (!curTr || incUpdated > curUpdated) {
+            appState.transferredLeftover[ym] = {
+              active: Boolean(incTr.active),
+              amount: Number(incTr.amount) || 0,
+              fromMonth: incTr.fromMonth || addMonthsToYM(ym, -1),
+              dismissed: Boolean(incTr.dismissed),
+              updatedAt: incUpdated
+            };
             changed = true;
           }
         }
@@ -1418,45 +1630,116 @@
     // MAIN RENDER
     // ==========================================
     function renderApp() {
-      const selectedMonth = document.getElementById('monthFilter').value || getCurrentYearMonth();
+      refreshActiveTransfers();
+      const selectedMonth = document.getElementById('monthFilter').value || appState.selectedMonth || '2026-11';
       const monthlyFixedItems = getActiveFixedExpenses('monthly');
       const annualFixedItems = getActiveFixedExpenses('annual');
 
       const st = computeMonthStats(selectedMonth);
+      const prevYM = addMonthsToYM(selectedMonth, -1);
+      const nextYM = addMonthsToYM(selectedMonth, 1);
+      const prevStats = computeMonthStats(prevYM);
+      const trEntry = getTransferredLeftoverEntry(selectedMonth);
 
-      // Top subtitle showing independent month view
+      // Top subtitle showing month rules clearly
       document.getElementById('monthCarryoverNote').textContent =
-        `${formatMonthLabel(selectedMonth)} • Cuentas individuales del mes`;
+        `${formatMonthLabel(selectedMonth)} • Fijos viajan cada mes | Extras y Nómina por mes`;
 
-      // 1. INGRESOS BLOCK (Nómina e Ingresos exclusivos del mes seleccionado)
-      document.getElementById('monthlyIncomeDisplay').textContent = `+${formatCurrency(st.totalIncome)}`;
-      if (st.fixedSalary > 0 && st.extraIncome > 0) {
-        document.getElementById('extraIncomeSubtitle').textContent =
-          `Nómina (${formatMonthLabel(selectedMonth)}): ${formatCurrency(st.fixedSalary)} + Extra: ${formatCurrency(st.extraIncome)}`;
-      } else if (st.fixedSalary > 0) {
-        document.getElementById('extraIncomeSubtitle').textContent =
-          `Nómina de ${formatMonthLabel(selectedMonth)}: ${formatCurrency(st.fixedSalary)}`;
-      } else if (st.extraIncome > 0) {
-        document.getElementById('extraIncomeSubtitle').textContent =
-          `Nómina: 0,00 € + Ingresos extra: ${formatCurrency(st.extraIncome)}`;
+      // Carryover Prompt Banner (when user switches to a month and previous month had activity/leftover not yet transferred)
+      const promptBanner = document.getElementById('carryoverPromptBanner');
+      if (promptBanner) {
+        if (!st.hasCarriedFromPrev && (!trEntry || !trEntry.dismissed) && hasMonthOwnActivity(prevYM) && prevStats.netMonth !== 0) {
+          promptBanner.classList.remove('hidden');
+          document.getElementById('carryoverPromptTitle').textContent =
+            `¿Pasar los ${prevStats.netMonth >= 0 ? '+' : ''}${formatCurrency(prevStats.netMonth)} que te quedaron en ${formatMonthLabel(prevYM)} a ${formatMonthLabel(selectedMonth)}?`;
+          document.getElementById('carryoverPromptSubtitle').textContent =
+            `Pulsa «Sí, pasar a este mes» para sumar el sobrante final de ${formatMonthLabel(prevYM)} al balance de ${formatMonthLabel(selectedMonth)}.`;
+        } else {
+          promptBanner.classList.add('hidden');
+        }
+      }
+
+      // 1. INGRESOS BLOCK (Nómina del mes + Ingresos extra del mes + Sobrante traspasado si activo)
+      document.getElementById('monthlyIncomeDisplay').textContent = `${st.totalIncome >= 0 ? '+' : ''}${formatCurrency(st.totalIncome)}`;
+
+      const subtitleParts = [];
+      if (st.fixedSalary > 0) {
+        subtitleParts.push(`Nómina ${formatMonthLabel(selectedMonth)}: ${formatCurrency(st.fixedSalary)}`);
       } else {
-        document.getElementById('extraIncomeSubtitle').textContent =
-          `Sin nómina apuntada en ${formatMonthLabel(selectedMonth)} (pulsa para añadir)`;
+        subtitleParts.push(`Nómina ${formatMonthLabel(selectedMonth)}: 0,00 € (toca para apuntar)`);
+      }
+      if (st.extraIncome > 0) {
+        subtitleParts.push(`Extra: +${formatCurrency(st.extraIncome)}`);
+      }
+      if (st.hasCarriedFromPrev) {
+        subtitleParts.push(`De ${formatMonthLabel(st.carriedFromMonth)}: ${st.carriedFromPrev >= 0 ? '+' : ''}${formatCurrency(st.carriedFromPrev)}`);
+      }
+      document.getElementById('extraIncomeSubtitle').textContent = subtitleParts.join(' • ');
+
+      // Carried-in badge inside the income card
+      const carriedBadgeBox = document.getElementById('carriedInBadgeContainer');
+      if (carriedBadgeBox) {
+        if (st.hasCarriedFromPrev) {
+          carriedBadgeBox.innerHTML = `
+            <div class="mt-2.5 flex flex-wrap items-center justify-between gap-2 bg-cyan-950/60 border border-cyan-400/40 rounded-xl px-3 py-2 text-xs">
+              <div class="flex items-center gap-1.5 text-cyan-100 font-semibold">
+                <span>🔄</span>
+                <span>Sobrante de <strong>${escapeHtml(formatMonthLabel(st.carriedFromMonth))}</strong>:</span>
+                <span class="font-extrabold ${st.carriedFromPrev >= 0 ? 'text-emerald-300' : 'text-rose-300'}">${st.carriedFromPrev >= 0 ? '+' : ''}${formatCurrency(st.carriedFromPrev)}</span>
+              </div>
+              <button onclick="event.stopPropagation(); removeTransferredLeftover('${selectedMonth}')" class="text-[11px] font-bold text-cyan-200 hover:text-white bg-cyan-900/70 hover:bg-rose-600/80 px-2 py-0.5 rounded-lg transition">
+                ✕ Quitar
+              </button>
+            </div>
+          `;
+        } else if (hasMonthOwnActivity(prevYM) && prevStats.netMonth !== 0) {
+          carriedBadgeBox.innerHTML = `
+            <div class="mt-2.5">
+              <button onclick="event.stopPropagation(); confirmTransferFromPrevMonth('${selectedMonth}')" class="w-full text-left flex items-center justify-between gap-2 bg-emerald-950/50 hover:bg-emerald-900/60 border border-emerald-400/30 rounded-xl px-3 py-2 text-xs text-emerald-100 transition">
+                <span>➕ Traer lo que quedó en <strong>${escapeHtml(formatMonthLabel(prevYM))}</strong> (${prevStats.netMonth >= 0 ? '+' : ''}${formatCurrency(prevStats.netMonth)})</span>
+                <span class="font-extrabold text-emerald-300 shrink-0">Pasar aquí →</span>
+              </button>
+            </div>
+          `;
+        } else {
+          carriedBadgeBox.innerHTML = '';
+        }
       }
 
       const leftoverEl = document.getElementById('monthlyLeftoverDisplay');
       leftoverEl.textContent = `${st.netMonth >= 0 ? '+' : ''}${formatCurrency(st.netMonth)}`;
-      leftoverEl.className = `text-base font-bold ${st.netMonth >= 0 ? 'text-emerald-400' : 'text-rose-400'}`;
+      leftoverEl.className = `text-lg font-extrabold ${st.netMonth >= 0 ? 'text-emerald-300' : 'text-rose-300'}`;
+
+      // Button to pass leftover of current month to next month manually
+      const passBtnBox = document.getElementById('passToNextMonthBtnContainer');
+      if (passBtnBox) {
+        const nextTr = getTransferredLeftoverEntry(nextYM);
+        if (nextTr && nextTr.active) {
+          passBtnBox.innerHTML = `
+            <button onclick="event.stopPropagation(); passLeftoverToNextMonth()" class="w-full flex items-center justify-between gap-2 bg-emerald-500/25 hover:bg-emerald-500/35 border border-emerald-400/50 text-emerald-100 text-xs font-extrabold px-3.5 py-2 rounded-xl transition">
+              <span>✅ Pasado a ${escapeHtml(formatMonthLabel(nextYM))} (${st.netMonth >= 0 ? '+' : ''}${formatCurrency(st.netMonth)})</span>
+              <span class="text-emerald-300 shrink-0">Ir a ${escapeHtml(formatMonthLabel(nextYM))} →</span>
+            </button>
+          `;
+        } else {
+          passBtnBox.innerHTML = `
+            <button onclick="event.stopPropagation(); passLeftoverToNextMonth()" class="w-full flex items-center justify-between gap-2 bg-gradient-to-r from-emerald-500/30 to-teal-500/30 hover:from-emerald-500/45 hover:to-teal-500/45 border border-emerald-400/40 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl transition shadow-sm">
+              <span>➡️ Pasar estos ${st.netMonth >= 0 ? '+' : ''}${formatCurrency(st.netMonth)} a ${escapeHtml(formatMonthLabel(nextYM))}</span>
+              <span class="text-emerald-300 shrink-0">Pasar de mes →</span>
+            </button>
+          `;
+        }
+      }
 
       // 2. GASTOS FIJOS Y VARIABLES BLOCK
       document.getElementById('totalMonthExpensesBadge').textContent = `-${formatCurrency(st.totalExpenses)} en el mes`;
 
       document.getElementById('fixedMonthlyTotalDisplay').textContent = `-${formatCurrency(st.fixedMonthlyTotal)}`;
       document.getElementById('fixedMonthlyCountLabel').textContent =
-        `${monthlyFixedItems.length} fijo${monthlyFixedItems.length === 1 ? '' : 's'} mensual${monthlyFixedItems.length === 1 ? '' : 'es'}`;
+        `${monthlyFixedItems.length} fijo${monthlyFixedItems.length === 1 ? '' : 's'} mensual${monthlyFixedItems.length === 1 ? '' : 'es'} (viajan mes a mes)`;
 
       document.getElementById('fixedAnnualTotalDisplay').innerHTML =
-        `-${formatCurrency(st.annualDueThisMonth)}<span class="text-[10px] font-normal text-slate-400"> este mes</span>`;
+        `-${formatCurrency(st.annualDueThisMonth)}<span class="text-[10px] font-normal text-amber-200/70"> este mes</span>`;
       document.getElementById('fixedAnnualMonthlyEqLabel').textContent =
         st.annualDueThisMonth > 0
           ? `Cobro en ${MONTH_NAMES[st.monthNum - 1]} (${st.annualDueCount})`
@@ -1464,7 +1747,7 @@
 
       document.getElementById('variableExpenseTotalDisplay').textContent = `-${formatCurrency(st.variableExpenses)}`;
       document.getElementById('variableExpenseCountLabel').textContent =
-        `${st.variableCount} gasto${st.variableCount === 1 ? '' : 's'} en ${formatMonthLabel(selectedMonth)}`;
+        `${st.variableCount} gasto${st.variableCount === 1 ? '' : 's'} extra en ${formatMonthLabel(selectedMonth)}`;
 
       // Section Header Badges (visible even when sections are minimized)
       const extrasBadge = document.getElementById('sectionExtrasBadge');
@@ -1484,12 +1767,13 @@
           : `0,00 € este mes (${annualFixedItems.length})`;
       }
 
-      // 3. RESUMEN EXCLUSIVO DEL MES (Sin traspaso de mes a mes)
+      // 3. RESUMEN DEL MES (Incluyendo sobrante traspasado si lo hay)
       const wealthEl = document.getElementById('totalWealthDisplay');
       wealthEl.textContent = `${st.netMonth >= 0 ? '+' : ''}${formatCurrency(st.netMonth)}`;
-      wealthEl.className = `${st.netMonth >= 0 ? 'text-emerald-400' : 'text-rose-400'} text-sm font-bold`;
-      document.getElementById('baseSavingsSubtitle').textContent =
-        `(Ingresos ${formatMonthLabel(selectedMonth)}: +${formatCurrency(st.totalIncome)} | Gastos: -${formatCurrency(st.totalExpenses)})`;
+      wealthEl.className = `${st.netMonth >= 0 ? 'text-emerald-300' : 'text-rose-300'} text-sm font-extrabold`;
+      document.getElementById('baseSavingsSubtitle').textContent = st.hasCarriedFromPrev
+        ? `(Nómina/Extra: +${formatCurrency(st.fixedSalary + st.extraIncome)} | De ${formatMonthLabel(st.carriedFromMonth)}: ${st.carriedFromPrev >= 0 ? '+' : ''}${formatCurrency(st.carriedFromPrev)} | Gastos: -${formatCurrency(st.totalExpenses)})`
+        : `(Ingresos ${formatMonthLabel(selectedMonth)}: +${formatCurrency(st.totalIncome)} | Gastos: -${formatCurrency(st.totalExpenses)})`;
 
       // If analytics modal is open, keep it updated
       const analyticsModal = document.getElementById('analyticsModal');
@@ -1535,10 +1819,11 @@
         .map(cat => `
           <button
             onclick="openTransactionModalWithCategory('${escapeHtml(cat.id)}')"
-            class="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition shadow-sm active:scale-95"
+            class="shrink-0 flex items-center gap-2 px-3.5 py-2 rounded-xl border border-indigo-200/80 bg-white/90 hover:bg-indigo-600 hover:text-white hover:border-indigo-600 transition shadow-sm active:scale-95"
+            style="border-bottom: 3px solid ${cat.color};"
           >
             ${renderCategoryLogoHtml(cat.icon, 'text-base')}
-            <span class="text-xs font-bold">${escapeHtml(cat.name)}</span>
+            <span class="text-xs font-extrabold">${escapeHtml(cat.name)}</span>
           </button>
         `)
         .join('');
@@ -1553,11 +1838,11 @@
       const container = document.getElementById(containerId);
       if (items.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-5 bg-slate-50 rounded-xl border border-dashed border-slate-200 text-slate-400">
-            <p class="text-xs font-medium text-slate-500">
+          <div class="text-center py-5 bg-white/70 rounded-xl border border-dashed ${frequency === 'monthly' ? 'border-blue-300 text-blue-700' : 'border-amber-300 text-amber-800'}">
+            <p class="text-xs font-semibold">
               ${frequency === 'monthly'
-                ? 'Añade aquí tu Alquiler, Cuenta Conjunta Pareja, Gimnasio...'
-                : 'Añade aquí tu Seguro del Coche, Suscripciones anuales...'}
+                ? '📅 Añade aquí tu Alquiler, Cuenta Conjunta Pareja, Gimnasio... (se mantienen de mes a mes)'
+                : '🗓️ Añade aquí tu Seguro del Coche, Suscripciones anuales... (se mantienen de mes a mes)'}
             </p>
           </div>
         `;
@@ -1572,30 +1857,30 @@
 
           const monthSelectorHtml = frequency === 'annual'
             ? `<div class="flex flex-wrap items-center gap-1.5 mt-1" onclick="event.stopPropagation()">
-                 <span class="text-[11px] font-semibold text-slate-500">Mes de cobro:</span>
+                 <span class="text-[11px] font-semibold text-slate-600">Mes de cobro:</span>
                  <select
                    onchange="changeAnnualItemMonth('${item.id}', this.value)"
                    class="text-[11px] font-bold rounded-lg px-2 py-0.5 border cursor-pointer focus:outline-none ${
                      isChargedThisMonth
-                       ? 'bg-amber-100 border-amber-300 text-amber-900'
-                       : (itemMonthNum === 0 ? 'bg-rose-50 border-rose-300 text-rose-700' : 'bg-white border-slate-200 text-slate-700')
+                       ? 'bg-amber-200 border-amber-400 text-amber-950'
+                       : (itemMonthNum === 0 ? 'bg-rose-50 border-rose-300 text-rose-700' : 'bg-amber-50 border-amber-200 text-amber-900')
                    }"
                  >
                    <option value="" ${itemMonthNum === 0 ? 'selected' : ''}>-- Elegir mes --</option>
                    ${MONTH_NAMES.map((mName, idx) => `<option value="${idx + 1}" ${itemMonthNum === idx + 1 ? 'selected' : ''}>${mName}</option>`).join('')}
                  </select>
-                 ${isChargedThisMonth ? `<span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-1.5 py-0.5 rounded">Se descuenta este mes</span>` : ''}
+                 ${isChargedThisMonth ? `<span class="text-[10px] font-bold text-amber-800 bg-amber-200/80 px-1.5 py-0.5 rounded">Se descuenta este mes</span>` : ''}
                </div>`
-            : `<p class="text-[11px] text-slate-500">${escapeHtml(meta.name)} • Fijo mensual</p>`;
+            : `<p class="text-[11px] font-medium text-blue-700/80">${escapeHtml(meta.name)} • Fijo mensual</p>`;
 
           return `
-            <div onclick="editFixedItem('${item.id}')" title="Toca para editar este gasto fijo" class="flex items-center justify-between p-3 rounded-xl cursor-pointer ${isChargedThisMonth ? 'bg-amber-50/70 border-amber-200' : 'bg-slate-50 border-slate-100'} border hover:border-slate-300 hover:bg-slate-100/70 transition group">
+            <div onclick="editFixedItem('${item.id}')" title="Toca para editar este gasto fijo" class="flex items-center justify-between p-3 rounded-xl cursor-pointer ${isChargedThisMonth ? 'bg-amber-100/80 border-amber-300' : 'bg-white/90 border-indigo-100'} border shadow-sm hover:shadow-md hover:bg-white transition group" style="border-left: 4px solid ${meta.color};">
               <div class="flex items-center gap-3 min-w-0">
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background-color: ${meta.color}20;">
+                <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background-color: ${meta.color}25;">
                   ${renderCategoryLogoHtml(meta.icon, 'text-base')}
                 </div>
                 <div class="min-w-0">
-                  <p class="text-sm font-bold text-slate-800 truncate">${escapeHtml(item.name)}</p>
+                  <p class="text-sm font-extrabold text-slate-800 truncate">${escapeHtml(item.name)}</p>
                   ${monthSelectorHtml}
                 </div>
               </div>
@@ -1603,7 +1888,7 @@
                 <span class="text-sm font-extrabold text-slate-900 mr-1">
                   -${formatCurrency(item.amount)}<span class="text-[10px] font-normal text-slate-500">${frequency === 'annual' ? '/año' : '/mes'}</span>
                 </span>
-                <button onclick="event.stopPropagation(); editFixedItem('${item.id}')" class="px-2 py-1 rounded-lg bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 transition" title="Editar">
+                <button onclick="event.stopPropagation(); editFixedItem('${item.id}')" class="px-2 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-[11px] font-bold text-indigo-700 hover:bg-indigo-100 transition" title="Editar">
                   ✏️ Editar
                 </button>
                 <button onclick="event.stopPropagation(); deleteFixedItem('${item.id}')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" title="Eliminar">
@@ -1665,9 +1950,9 @@
       const entries = Object.entries(byCat).sort((a, b) => b[1] - a[1]);
       if (entries.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-8 text-slate-400">
+          <div class="text-center py-8 bg-white/70 rounded-xl border border-dashed border-purple-300 text-purple-800">
             <p class="text-2xl mb-1">📊</p>
-            <p class="text-xs font-medium text-slate-500">Añade tus gastos fijos o variables para ver el reparto por categoría</p>
+            <p class="text-xs font-semibold">Añade tus gastos fijos o variables para ver el reparto visual por categoría</p>
           </div>
         `;
         return;
@@ -1678,15 +1963,15 @@
           const meta = getCategoryMeta('expense', catId);
           const pct = grandTotal > 0 ? Math.round((amount / grandTotal) * 100) : 0;
           return `
-            <div>
-              <div class="flex items-center justify-between text-xs mb-1">
-                <span class="font-semibold text-slate-700 flex items-center gap-1.5">
+            <div class="bg-white/85 rounded-xl p-2.5 border border-purple-200/70 shadow-sm">
+              <div class="flex items-center justify-between text-xs mb-1.5">
+                <span class="font-bold text-slate-800 flex items-center gap-1.5">
                   ${renderCategoryLogoHtml(meta.icon, 'text-sm')}
                   <span>${escapeHtml(meta.name)}</span>
                 </span>
-                <span class="font-bold text-slate-900">${formatCurrency(amount)} <span class="text-slate-400 font-normal">(${pct}%)</span></span>
+                <span class="font-extrabold text-slate-900">${formatCurrency(amount)} <span class="text-purple-700 font-semibold">(${pct}%)</span></span>
               </div>
-              <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+              <div class="w-full h-2.5 bg-purple-100 rounded-full overflow-hidden">
                 <div class="h-full rounded-full transition-all duration-300" style="width: ${Math.max(pct, 3)}%; background-color: ${meta.color};"></div>
               </div>
             </div>
@@ -1699,10 +1984,10 @@
       const container = document.getElementById('transactionsList');
       if (txs.length === 0) {
         container.innerHTML = `
-          <div class="text-center py-10 text-slate-400">
+          <div class="text-center py-9 bg-white/75 rounded-xl border border-dashed border-rose-300 text-rose-800">
             <p class="text-3xl mb-2">💸</p>
-            <p class="text-sm font-semibold text-slate-600">Sin movimientos variables en este mes</p>
-            <p class="text-xs text-slate-400 mt-1">Toca cualquier categoría arriba (Pádel, Cena, Ocio...) para apuntar un gasto rápido.</p>
+            <p class="text-sm font-extrabold text-rose-900">Sin gastos extras ni ingresos puntuales en este mes</p>
+            <p class="text-xs text-rose-700/80 mt-1">Toca cualquier categoría arriba (Pádel, Cena, Ocio...) para apuntar un gasto rápido.</p>
           </div>
         `;
         return;
@@ -1715,15 +2000,15 @@
           const dateFormatted = formatDateShort(tx.date);
 
           return `
-            <div onclick="editTransaction('${tx.id}')" title="Toca para editar este movimiento" class="flex items-center justify-between p-3 rounded-xl border border-slate-100 hover:border-slate-300 bg-slate-50/70 hover:bg-slate-100/70 cursor-pointer transition group">
+            <div onclick="editTransaction('${tx.id}')" title="Toca para editar este movimiento" class="flex items-center justify-between p-3 rounded-xl border ${isIncome ? 'border-emerald-200 bg-emerald-50/70 hover:bg-emerald-50' : 'border-rose-200/80 bg-white/90 hover:bg-white'} shadow-sm hover:shadow-md cursor-pointer transition group" style="border-left: 4px solid ${meta.color};">
               <div class="flex items-center gap-3 min-w-0">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background-color: ${meta.color}20;">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background-color: ${meta.color}25;">
                   ${renderCategoryLogoHtml(meta.icon, 'text-lg')}
                 </div>
                 <div class="min-w-0">
-                  <p class="text-sm font-bold text-slate-800 truncate">${escapeHtml(tx.concept || meta.name)}</p>
+                  <p class="text-sm font-extrabold text-slate-800 truncate">${escapeHtml(tx.concept || meta.name)}</p>
                   <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-500">
-                    <span class="font-semibold text-slate-600">${escapeHtml(meta.name)}</span>
+                    <span class="font-bold text-slate-700">${escapeHtml(meta.name)}</span>
                     <span>•</span>
                     <span>${dateFormatted}</span>
                   </div>
@@ -1734,7 +2019,7 @@
                 <span class="text-sm font-extrabold mr-1 ${isIncome ? 'text-emerald-600' : 'text-rose-600'}">
                   ${isIncome ? '+' : '-'}${formatCurrency(tx.amount)}
                 </span>
-                <button onclick="event.stopPropagation(); editTransaction('${tx.id}')" class="px-2 py-1 rounded-lg bg-white border border-slate-200 text-[11px] font-semibold text-slate-700 hover:bg-slate-100 transition" title="Editar">
+                <button onclick="event.stopPropagation(); editTransaction('${tx.id}')" class="px-2 py-1 rounded-lg bg-rose-50 border border-rose-200 text-[11px] font-bold text-rose-800 hover:bg-rose-100 transition" title="Editar">
                   ✏️ Editar
                 </button>
                 <button onclick="event.stopPropagation(); deleteTransaction('${tx.id}')" class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition" title="Eliminar">
